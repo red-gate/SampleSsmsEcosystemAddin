@@ -5,30 +5,24 @@ namespace SampleSsmsEcosystemAddin
 {
     public class Extension : ISsmsAddin
     {
-        private ISsmsFunctionalityProvider4 m_Provider4;
-        private object m_Dte2;
+        private ISsmsFunctionalityProvider6 m_Provider;
 
         public void OnLoad(ISsmsExtendedFunctionalityProvider provider)
         {
-            m_Provider4 = (ISsmsFunctionalityProvider4) provider;
-            
-            m_Dte2 = m_Provider4.SsmsDte2;
-
-            if(m_Provider4 == null)
-                throw new ArgumentException();
+            m_Provider = (ISsmsFunctionalityProvider6)provider;    //Caste to the latest version of the interface
 
             var subMenus = new SimpleOeMenuItemBase[]
             {
-                new Menu("Command 1", m_Provider4),
-                new Menu("Command 2", m_Provider4),
+                new Menu("Command 1", m_Provider),
+                new Menu("Command 2", m_Provider),
             };
             
 
             //m_Provider4.AddToolsMenuItem(new Command());
 
-            m_Provider4.AddGlobalCommand(new SharedCommand(m_Provider4));
+            m_Provider.AddGlobalCommand(new SharedCommand(m_Provider));
 
-            m_Provider4.MenuBar.MainMenu.BeginSubmenu("Sample", "Sample")
+            m_Provider.MenuBar.MainMenu.BeginSubmenu("Sample", "Sample")
                 .BeginSubmenu("Sub 1", "Sub1")
                 .AddCommand("RedGate_Sample_Command")
                 .AddCommand("RedGate_Sample_Command")
@@ -39,9 +33,9 @@ namespace SampleSsmsEcosystemAddin
                 .EndSubmenu();
 
             
-            m_Provider4.AddToolbarItem(new Command());
+            m_Provider.AddToolbarItem(new Command());
 
-            m_Provider4.AddTopLevelMenuItem(new Submenu(subMenus));
+            m_Provider.AddTopLevelMenuItem(new Submenu(subMenus));
         }
 
         public void OnNodeChanged(ObjectExplorerNodeDescriptorBase node)
