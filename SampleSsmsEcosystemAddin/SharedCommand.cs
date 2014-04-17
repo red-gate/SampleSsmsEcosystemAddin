@@ -1,11 +1,12 @@
-﻿using RedGate.SIPFrameworkShared;
+﻿using System.Reflection;
+using RedGate.SIPFrameworkShared;
 
 namespace SampleSsmsEcosystemAddin
 {
-    public class SharedCommand : ISharedCommandWithExecuteParameter
+    public class SharedCommand : ISharedCommandWithExecuteParameter, ISharedCommand
     {
         private readonly ISsmsFunctionalityProvider4 m_Provider;
-        private readonly ICommandImage m_CommandImage = new CommandImageNone();
+        private readonly ICommandImage m_CommandImage = new CommandImageForEmbeddedResources(Assembly.GetExecutingAssembly(), "SampleSsmsEcosystemAddin.rg_icon.ico");
 
         public SharedCommand(ISsmsFunctionalityProvider4 provider)
         {

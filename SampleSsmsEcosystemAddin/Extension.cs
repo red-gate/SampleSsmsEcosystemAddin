@@ -74,7 +74,7 @@ namespace SampleSsmsEcosystemAddin
 
         private void AddToolbarButton()
         {
-            m_Provider.AddToolbarItem(new Command());
+            m_Provider.AddToolbarItem(new SharedCommand(m_Provider));
         }
 
         private void AddObjectExplorerContextMenu()
