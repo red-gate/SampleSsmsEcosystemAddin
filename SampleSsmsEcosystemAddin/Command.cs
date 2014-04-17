@@ -11,10 +11,10 @@ namespace SampleSsmsEcosystemAddin
         }
 
         public string Caption { get { return "Caption"; } }
-        public string Tooltip { get { return "Tooltip"; }}
-        public ICommandImage Icon { get { return new CommandImageNone(); }}
-        public string[] DefaultBindings { get { return new string[] {}; }}
-        public bool Visible { get { return true; }}
-        public bool Enabled { get{return true;}}
+        public string Tooltip { get { return "Tooltip"; } }
+        public ICommandImage Icon { get { return new CommandImageNone(); } }
+        public string[] DefaultBindings { get { return new string[] {}; } }
+        public bool Visible { get { return true; } }
+        public bool Enabled { get { return true; } }
     }
 }
