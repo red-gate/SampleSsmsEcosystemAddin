@@ -1,10 +1,13 @@
-﻿using RedGate.SIPFrameworkShared;
+﻿using System.Reflection;
+using RedGate.SIPFrameworkShared;
 
 namespace SampleSsmsEcosystemAddin.Examples
 {
-    class Submenu : SubmenuSimpleOeMenuItemBase
+    class ObjectExplorerSubmenu : SubmenuSimpleOeMenuItemBase
     {
-        public Submenu(SimpleOeMenuItemBase[] subMenus)
+        private readonly ICommandImage m_CommandImage = new CommandImageForEmbeddedResources(Assembly.GetExecutingAssembly(), "SampleSsmsEcosystemAddin.Examples.rg_icon.ico");
+
+        public ObjectExplorerSubmenu(SimpleOeMenuItemBase[] subMenus)
             : base(subMenus)
         {
         }

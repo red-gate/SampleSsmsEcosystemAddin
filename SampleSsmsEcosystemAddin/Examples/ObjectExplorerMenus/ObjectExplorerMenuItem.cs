@@ -2,12 +2,12 @@
 
 namespace SampleSsmsEcosystemAddin.Examples
 {
-    public class Menu : ActionSimpleOeMenuItemBase
+    public class ObjectExplorerMenuItem : ActionSimpleOeMenuItemBase
     {
         private readonly string m_Label;
         private readonly ISsmsFunctionalityProvider4 m_Provider4;
 
-        public Menu(string label, ISsmsFunctionalityProvider4 provider4)
+        public ObjectExplorerMenuItem(string label, ISsmsFunctionalityProvider4 provider4)
         {
             m_Label = label;
             m_Provider4 = provider4;

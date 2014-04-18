@@ -50,11 +50,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Examples\Menu.cs" />
+    <Compile Include="Examples\ObjectExplorerMenus\ObjectExplorerMenuItem.cs" />
     <Compile Include="SampleAddin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Examples\SharedCommand.cs" />
-    <Compile Include="Examples\Submenu.cs" />
+    <Compile Include="Examples\ObjectExplorerMenus\ObjectExplorerSubmenu.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ExampleKey.snk" />

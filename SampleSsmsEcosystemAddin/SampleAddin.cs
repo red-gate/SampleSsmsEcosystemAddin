@@ -58,13 +58,6 @@ namespace SampleSsmsEcosystemAddin
 
         private void AddMenuBarMenu()
         {
-            var subMenus = new SimpleOeMenuItemBase[]
-            {
-                new Menu("Command 1", m_Provider),
-                new Menu("Command 2", m_Provider),
-            };
-            m_Provider.AddTopLevelMenuItem(new Submenu(subMenus));
-
             var command = new SharedCommand(m_Provider);
             m_Provider.AddGlobalCommand(command);
 
@@ -83,7 +76,12 @@ namespace SampleSsmsEcosystemAddin
 
         private void AddObjectExplorerContextMenu()
         {
-            //throw new System.NotImplementedException();
+            var subMenus = new SimpleOeMenuItemBase[]
+            {
+                new ObjectExplorerMenuItem("Command 1", m_Provider),
+                new ObjectExplorerMenuItem("Command 2", m_Provider),
+            };
+            m_Provider.AddTopLevelMenuItem(new ObjectExplorerSubmenu(subMenus));
         }
 
 
