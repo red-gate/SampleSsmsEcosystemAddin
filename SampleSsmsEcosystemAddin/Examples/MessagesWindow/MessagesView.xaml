@@ -7,14 +7,16 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <DataTemplate x:Key="MessageTemplate">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="{Binding Time}"/>
-                <TextBlock Grid.Column="1" Text="{Binding Text}"/>
-            </Grid>
+            <Border BorderThickness="1" BorderBrush="Gray">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="{Binding Time}"/>
+                    <TextBlock Grid.Column="1" Text="{Binding Text}"/>
+                </Grid>
+            </Border>
         </DataTemplate>
     </UserControl.Resources>
     <ListBox ItemsSource="{Binding Messages}" ItemTemplate="{StaticResource MessageTemplate}"/>
