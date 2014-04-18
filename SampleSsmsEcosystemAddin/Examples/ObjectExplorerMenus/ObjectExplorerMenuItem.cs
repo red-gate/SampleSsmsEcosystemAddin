@@ -67,7 +67,8 @@ namespace SampleSsmsEcosystemAddin.Examples
                     m_Provider.QueryWindow.OpenNew(sql, databaseObjectInfo.ObjectName, connectionInfo.ConnectionString);
                 }
             }
-            m_Provider.QueryWindow.OpenNew(string.Format("Name: {0}\nPath: {1}", oeNode.Name, oeNode.Path));
+            else
+                m_Provider.QueryWindow.OpenNew(string.Format("Name: {0}\nPath: {1}", oeNode.Name, oeNode.Path));
         }
     }
 }
