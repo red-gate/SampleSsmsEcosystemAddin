@@ -13,7 +13,7 @@ namespace SampleSsmsEcosystemAddin
     ///     For example: C:\Users\david\Documents\SampleSsmsEcosystemAddin\SampleSsmsEcosystemAddin\bin\Debug\SampleSsmsEcosystemAddin.dll
     ///  
     /// </summary>
-    public class Extension : ISsmsAddin4
+    public class SampleAddin : ISsmsAddin4
     {
         /// <summary>
         /// Add in meta data
