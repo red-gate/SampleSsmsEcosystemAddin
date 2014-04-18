@@ -30,6 +30,7 @@ namespace SampleSsmsEcosystemAddin
 
         private ISsmsFunctionalityProvider6 m_Provider;
         private MessageLog m_MessageLog;
+        private IToolWindow m_MessageLogWindow;
 
         /// <summary>
         /// This is the entry point for your add in.
@@ -38,9 +39,12 @@ namespace SampleSsmsEcosystemAddin
         public void OnLoad(ISsmsExtendedFunctionalityProvider provider)
         {
             m_Provider = (ISsmsFunctionalityProvider6)provider;    //Caste to the latest version of the interface
+            
             m_MessageLog = new MessageLog();
+            var messagesView = new MessagesView { DataContext = m_MessageLog };
+            m_MessageLogWindow = m_Provider.ToolWindow.Create(messagesView, "Sample Add-in", new Guid(c_MessageWindowGuid));
+            DisplayMessage("Message log window created.");
 
-            OpenToolWindow();
             AddMenuBarMenu();
             AddObjectExplorerContextMenu();
             AddToolbarButton();
@@ -62,17 +66,10 @@ namespace SampleSsmsEcosystemAddin
         public void OnNodeChanged(ObjectExplorerNodeDescriptorBase node)
         {
         }
-
-        private void OpenToolWindow()
-        {
-            var messagesView = new MessagesView { DataContext = m_MessageLog };
-            var messageWindow = m_Provider.ToolWindow.Create(messagesView, "Sample Add-in", new Guid(c_MessageWindowGuid));
-            messageWindow.Activate(true);
-        }
-
+        
         private void AddMenuBarMenu()
         {
-            var command = new SharedCommand(m_Provider);
+            var command = new SharedCommand(m_Provider, DisplayMessage);
             m_Provider.AddGlobalCommand(command);
 
             m_Provider.MenuBar.MainMenu.BeginSubmenu("Sample", "Sample")
@@ -85,20 +82,24 @@ namespace SampleSsmsEcosystemAddin
 
         private void AddToolbarButton()
         {
-            m_Provider.AddToolbarItem(new SharedCommand(m_Provider));
+            m_Provider.AddToolbarItem(new SharedCommand(m_Provider, DisplayMessage));
         }
 
         private void AddObjectExplorerContextMenu()
         {
             var subMenus = new SimpleOeMenuItemBase[]
             {
-                new ObjectExplorerMenuItem("Command 1", m_Provider),
-                new ObjectExplorerMenuItem("Command 2", m_Provider),
+                new ObjectExplorerMenuItem("Command 1", m_Provider, DisplayMessage),
+                new ObjectExplorerMenuItem("Command 2", m_Provider, DisplayMessage),
             };
             m_Provider.AddTopLevelMenuItem(new ObjectExplorerSubmenu(subMenus));
         }
 
-
+        public void DisplayMessage(string text)
+        {
+            m_MessageLog.AddMessage(text);
+            m_MessageLogWindow.Activate(true);
+        }
         
 
 

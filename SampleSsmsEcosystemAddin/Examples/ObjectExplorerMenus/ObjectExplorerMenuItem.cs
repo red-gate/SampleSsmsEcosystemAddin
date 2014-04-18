@@ -1,4 +1,5 @@
-﻿using RedGate.SIPFrameworkShared;
+﻿using System;
+using RedGate.SIPFrameworkShared;
 
 namespace SampleSsmsEcosystemAddin.Examples
 {
@@ -6,11 +7,13 @@ namespace SampleSsmsEcosystemAddin.Examples
     {
         private readonly string m_Label;
         private readonly ISsmsFunctionalityProvider4 m_Provider4;
+        private readonly Action<string> m_LogMessage;
 
-        public ObjectExplorerMenuItem(string label, ISsmsFunctionalityProvider4 provider4)
+        public ObjectExplorerMenuItem(string label, ISsmsFunctionalityProvider4 provider4, Action<string> logMessageCallback)
         {
             m_Label = label;
             m_Provider4 = provider4;
+            m_LogMessage = logMessageCallback;
         }
 
         public override bool AppliesTo(ObjectExplorerNodeDescriptorBase oeNode)

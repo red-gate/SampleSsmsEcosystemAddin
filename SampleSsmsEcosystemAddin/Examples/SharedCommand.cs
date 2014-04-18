@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using RedGate.SIPFrameworkShared;
 
 namespace SampleSsmsEcosystemAddin.Examples
@@ -6,17 +7,24 @@ namespace SampleSsmsEcosystemAddin.Examples
     public class SharedCommand : ISharedCommandWithExecuteParameter, ISharedCommand
     {
         private readonly ISsmsFunctionalityProvider4 m_Provider;
+        private readonly Action<string> m_LogMessage;
         private readonly ICommandImage m_CommandImage = new CommandImageForEmbeddedResources(Assembly.GetExecutingAssembly(), "SampleSsmsEcosystemAddin.Examples.rg_icon.ico");
 
-        public SharedCommand(ISsmsFunctionalityProvider4 provider)
+        public SharedCommand(ISsmsFunctionalityProvider4 provider, Action<string> logMessageCallback)
         {
             m_Provider = provider;
+            m_LogMessage = logMessageCallback;
         }
 
         public string Name { get { return "RedGate_Sample_Command"; } }
         public void Execute(object parameter)
         {
-            m_Provider.QueryWindow.OpenNew("hello");
+            Execute();
+        }
+
+        public void Execute()
+        {
+            m_LogMessage("SharedCommand executed.");
         }
 
         public string Caption { get { return "Red Gate Sample Command"; } }
@@ -25,11 +33,5 @@ namespace SampleSsmsEcosystemAddin.Examples
         public string[] DefaultBindings { get { return new[] { "global::Ctrl+Alt+D" }; } }
         public bool Visible { get { return true; } }
         public bool Enabled { get { return true; } }
-
-
-        public void Execute()
-        {
-            
-        }
     }
 }
