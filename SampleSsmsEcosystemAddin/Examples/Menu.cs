@@ -1,6 +1,6 @@
 ﻿using RedGate.SIPFrameworkShared;
 
-namespace SampleSsmsEcosystemAddin
+namespace SampleSsmsEcosystemAddin.Examples
 {
     public class Menu : ActionSimpleOeMenuItemBase
     {

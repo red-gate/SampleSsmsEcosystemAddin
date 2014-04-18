@@ -1,4 +1,5 @@
 ﻿using RedGate.SIPFrameworkShared;
+using SampleSsmsEcosystemAddin.Examples;
 
 namespace SampleSsmsEcosystemAddin
 {
