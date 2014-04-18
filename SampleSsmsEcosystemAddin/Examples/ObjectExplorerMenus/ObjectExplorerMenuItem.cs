@@ -17,24 +17,42 @@ namespace SampleSsmsEcosystemAddin.Examples
             m_LogMessage = logMessageCallback;
         }
 
+        /// <summary>
+        /// Determines if this menu item should be displayed on this node's context menu.
+        /// 
+        /// Add-ins should cast oeNode to IOeNode.
+        /// </summary>
+        /// <param name="oeNode">The object explorer menu the user has right-clicked on.</param>
+        /// <returns>true is the menu should be visible.</returns>
         public override bool AppliesTo(ObjectExplorerNodeDescriptorBase oeNode)
         {
             return true;
         }
 
+        /// <summary>
+        /// The text displayed for this menu item.
+        /// </summary>
         public override string ItemText
         {
             get { return m_Label; }
         }
 
+        /// <summary>
+        /// New add-ins implementing this function should caste node to IOeNode.
+        /// 
+        /// Unfortunately base classes were included in the public interfaces. These can't be removed without breaking backwards compatibility.
+        /// </summary>
         public override void OnAction(ObjectExplorerNodeDescriptorBase node)
         {
             var oeNode = (IOeNode) node;
             if (oeNode == null)
             {
                 m_Provider.QueryWindow.OpenNew("null");
+                m_LogMessage("This shouldn't happen unless you somehow have an ancient version of SIPFw installed.");
                 return;
             }
+
+            m_LogMessage(string.Format("Object explorer node clicked: {0}", oeNode.Name));
             IDatabaseObjectInfo databaseObjectInfo;
             IConnectionInfo connectionInfo;
             if (oeNode.TryGetDatabaseObject(out databaseObjectInfo) && oeNode.TryGetConnection(out connectionInfo))
