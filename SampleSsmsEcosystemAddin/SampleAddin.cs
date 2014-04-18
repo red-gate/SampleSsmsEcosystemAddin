@@ -43,7 +43,7 @@ namespace SampleSsmsEcosystemAddin
             m_MessageLog = new MessageLog();
             var messagesView = new MessagesView { DataContext = m_MessageLog };
             m_MessageLogWindow = m_Provider.ToolWindow.Create(messagesView, "Sample Add-in", new Guid(c_MessageWindowGuid));
-            DisplayMessage("Message log window created.");
+            DisplayMessages();
 
             AddMenuBarMenu();
             AddObjectExplorerContextMenu();
@@ -69,7 +69,7 @@ namespace SampleSsmsEcosystemAddin
         
         private void AddMenuBarMenu()
         {
-            var command = new SharedCommand(m_Provider, DisplayMessage);
+            var command = new SharedCommand(m_Provider, LogAndDisplayMessage);
             m_Provider.AddGlobalCommand(command);
 
             m_Provider.MenuBar.MainMenu.BeginSubmenu("Sample", "Sample")
@@ -82,22 +82,32 @@ namespace SampleSsmsEcosystemAddin
 
         private void AddToolbarButton()
         {
-            m_Provider.AddToolbarItem(new SharedCommand(m_Provider, DisplayMessage));
+            m_Provider.AddToolbarItem(new SharedCommand(m_Provider, LogAndDisplayMessage));
         }
 
         private void AddObjectExplorerContextMenu()
         {
             var subMenus = new SimpleOeMenuItemBase[]
             {
-                new ObjectExplorerMenuItem("Command 1", m_Provider, DisplayMessage),
-                new ObjectExplorerMenuItem("Command 2", m_Provider, DisplayMessage),
+                new ObjectExplorerMenuItem("Command 1", m_Provider, LogMessage),
+                new ObjectExplorerMenuItem("Command 2", m_Provider, LogMessage),
             };
             m_Provider.AddTopLevelMenuItem(new ObjectExplorerSubmenu(subMenus));
         }
 
-        public void DisplayMessage(string text)
+        public void LogAndDisplayMessage(string text)
+        {
+            LogMessage(text);
+            DisplayMessages();
+        }
+
+        public void LogMessage(string text)
         {
             m_MessageLog.AddMessage(text);
+        }
+
+        public void DisplayMessages()
+        {
             m_MessageLogWindow.Activate(true);
         }
         
