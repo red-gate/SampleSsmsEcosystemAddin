@@ -63,10 +63,6 @@
   <ItemGroup>
     <EmbeddedResource Include="rg_icon.ico" />
   </ItemGroup>
-  <Target Name="DeployDebugAddin" AfterTargets="AfterBuild" Condition="('$(Configuration)' == 'Debug') And ('$(BuildingInsideVisualStudio)' == 'true')">
-    <!-- During a debug build this tries to update SIPframework's addin registry to load the local build. -->
-    <Exec Command="echo Y|reg add &quot;HKLM\Software\Wow6432Node\Red Gate\SIPFramework\Plugins&quot; /v SampleAddin /t REG_SZ /d &quot;$(OutputPath)SampleSsmsEcosystemAddin.dll&quot; /f" />
-  </Target>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

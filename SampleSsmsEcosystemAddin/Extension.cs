@@ -5,8 +5,11 @@ namespace SampleSsmsEcosystemAddin
     /// <summary>
     /// You must have SIPFramework installed. You can find a standalone installer here: http://www.red-gate.com/ssmsecosystem
     /// 
-    /// SIPFramework hooks into SSMS and launches add ins. When this project is compiled it will automatically register with SIPFramework by 
-    /// creating a registry entry in: HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Red Gate\SIPFramework\Plugins
+    /// SIPFramework hooks into SSMS and launches add ins. You will need to register this sample add-in with SIPFramework. To do this:
+    /// 1. Find registry key: HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Red Gate\SIPFramework\Plugins
+    /// 2. Create a new string with the name "SampleAddIn".
+    /// 3. Set the value to the full file path of SampleSsmsEcosystemAddin.dll.
+    ///     For example: C:\Users\david\Documents\SampleSsmsEcosystemAddin\SampleSsmsEcosystemAddin\bin\Debug\SampleSsmsEcosystemAddin.dll
     ///  
     /// </summary>
     public class Extension : ISsmsAddin4
