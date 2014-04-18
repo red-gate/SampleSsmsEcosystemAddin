@@ -43,6 +43,7 @@ namespace SampleSsmsEcosystemAddin
             m_MessageLog = new MessageLog();
             var messagesView = new MessagesView { DataContext = m_MessageLog };
             m_MessageLogWindow = m_Provider.ToolWindow.Create(messagesView, "Sample Add-in", new Guid(c_MessageWindowGuid));
+            m_MessageLogWindow.Window.Dock();
             DisplayMessages();
 
             AddMenuBarMenu();
