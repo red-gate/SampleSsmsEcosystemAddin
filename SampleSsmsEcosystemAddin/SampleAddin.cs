@@ -1,5 +1,7 @@
-﻿using RedGate.SIPFrameworkShared;
+﻿using System;
+using RedGate.SIPFrameworkShared;
 using SampleSsmsEcosystemAddin.Examples;
+using SampleSsmsEcosystemAddin.Examples.MessagesWindow;
 
 namespace SampleSsmsEcosystemAddin
 {
@@ -24,7 +26,10 @@ namespace SampleSsmsEcosystemAddin
         public string Author { get { return "Red Gate"; } }
         public string Url { get { return @"https://github.com/red-gate/SampleSsmsEcosystemAddin"; } }
 
+        private const string c_MessageWindowGuid = "C97F1BC2-8ADD-4BED-B328-56679DBC0656";
+
         private ISsmsFunctionalityProvider6 m_Provider;
+        private MessageLog m_MessageLog;
 
         /// <summary>
         /// This is the entry point for your add in.
@@ -33,12 +38,14 @@ namespace SampleSsmsEcosystemAddin
         public void OnLoad(ISsmsExtendedFunctionalityProvider provider)
         {
             m_Provider = (ISsmsFunctionalityProvider6)provider;    //Caste to the latest version of the interface
+            m_MessageLog = new MessageLog();
 
+            OpenToolWindow();
             AddMenuBarMenu();
             AddObjectExplorerContextMenu();
             AddToolbarButton();
         }
-        
+
         /// <summary>
         /// Callback when SSMS is beginning to shutdown.
         /// </summary>
@@ -54,6 +61,13 @@ namespace SampleSsmsEcosystemAddin
         /// <param name="node">The node that was selected.</param>
         public void OnNodeChanged(ObjectExplorerNodeDescriptorBase node)
         {
+        }
+
+        private void OpenToolWindow()
+        {
+            var messagesView = new MessagesView { DataContext = m_MessageLog };
+            var messageWindow = m_Provider.ToolWindow.Create(messagesView, "Sample Add-in", new Guid(c_MessageWindowGuid));
+            messageWindow.Activate(true);
         }
 
         private void AddMenuBarMenu()
