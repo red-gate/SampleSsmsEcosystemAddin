@@ -1,5 +1,6 @@
 ﻿using System;
 using RedGate.SIPFrameworkShared;
+using RedGate.SIPFrameworkShared.ObjectExplorer;
 using SampleSsmsEcosystemAddin.Examples;
 using SampleSsmsEcosystemAddin.Examples.MessagesWindow;
 
@@ -48,7 +49,30 @@ namespace SampleSsmsEcosystemAddin
 
             AddMenuBarMenu();
             AddObjectExplorerContextMenu();
+            AddObjectExplorerListener();
             AddToolbarButton();
+        }
+
+        private void AddObjectExplorerListener()
+        {
+            m_Provider.ObjectExplorerWatcher.ConnectionsChanged += (args) => { OnConnectionsChanged(args); };
+            m_Provider.ObjectExplorerWatcher.SelectionChanged += (args) => { OnSelectionChanged(args); };
+        }
+
+        private void OnSelectionChanged(ISelectionChangedEventArgs args)
+        {
+            m_MessageLog.AddMessage(string.Format("Object explorer selection: {0}", args.Selection.Path));
+        }
+
+        private void OnConnectionsChanged(IConnectionsChangedEventArgs args)
+        {
+            m_MessageLog.AddMessage("Object explorer connections:");
+            int count = 1;
+            foreach (var connection in args.Connections)
+            {
+                m_MessageLog.AddMessage(string.Format("\t{0}: {1}", count, connection.Server));
+                count++;
+            }
         }
 
         /// <summary>
