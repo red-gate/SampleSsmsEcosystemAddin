@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Net.Mime;
+using System.Windows;
 
 namespace SampleSsmsEcosystemAddin.Examples
 {
@@ -16,7 +18,8 @@ namespace SampleSsmsEcosystemAddin.Examples
         public void AddMessage(string messageText)
         {
             var message = new Message(messageText);
-            Messages.Insert(0, message);
+            Action<Message> addMethod = Messages.Add;
+            Application.Current.Dispatcher.BeginInvoke(addMethod, message);
         }
     }
 
