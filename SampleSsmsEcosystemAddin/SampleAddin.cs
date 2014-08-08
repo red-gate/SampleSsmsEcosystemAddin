@@ -2,6 +2,7 @@
 using RedGate.SIPFrameworkShared;
 using RedGate.SIPFrameworkShared.ObjectExplorer;
 using SampleSsmsEcosystemAddin.Examples;
+using SampleSsmsEcosystemAddin.Examples.CustomQueryWindow;
 using SampleSsmsEcosystemAddin.Examples.MessagesWindow;
 
 namespace SampleSsmsEcosystemAddin
@@ -48,10 +49,17 @@ namespace SampleSsmsEcosystemAddin
             DisplayMessages();
 
             AddMenuBarMenu();
+            AddCustomQueryWindowButton();
             AddObjectExplorerContextMenu();
             AddObjectExplorerListener();
             AddToolbarButton();
         }
+
+        private void AddCustomQueryWindowButton()
+        {
+            var command = new OpenCustomQueryWindowCommand(m_Provider);
+            m_Provider.AddToolbarItem(command);
+        }  
 
         private void AddObjectExplorerListener()
         {
