@@ -18,19 +18,65 @@ namespace SampleSsmsEcosystemAddin.Examples.SsmsFunctionalityProvider
         public CustomSsmsFunctionProvider(object ssmsDte2)
         {
             m_SsmsDte2 = ssmsDte2;
-            m_VersionSpecificProvider = LoadVersionSpecific(ssmsDte2);
+            if(!TryLoadVersionSpecific(m_SsmsDte2, out m_VersionSpecificProvider))
+                throw new Exception("Could not load custom function provider for this version of SSMS.");
         }
 
-        private ICustomSsmsFunctionProvider LoadVersionSpecific(object ssmsDte2)
+        private bool TryLoadVersionSpecific(object ssmsDte2, out ICustomSsmsFunctionProvider versionSpecificFunctionProvider)
         {
+            versionSpecificFunctionProvider = null;
+
             SsmsAssembly loadedSsmsAssembly;
-            if (!TryFindLoadedSsmsAssembly(out loadedSsmsAssembly))
+            if (TryFindLoadedSsmsAssembly(out loadedSsmsAssembly))
             {
-                throw new Exception("Unknown version of SSMS running.");
+                if (loadedSsmsAssembly.Version == new Version(9, 0, 242, 0))
+                {
+                    versionSpecificFunctionProvider = Load2005VersionSpecific(loadedSsmsAssembly, ssmsDte2);
+                    return true;
+                }
+
+                if (loadedSsmsAssembly.Version == new Version(10, 0, 0, 0))
+                {
+                    versionSpecificFunctionProvider = Load2008VersionSpecific(loadedSsmsAssembly, ssmsDte2);
+                    return true;
+                }
+
+                if (loadedSsmsAssembly.Version == new Version(11, 0, 0, 0))
+                {
+                    versionSpecificFunctionProvider = null; //new Ssms2012FunctionProvider(ssmsDte2);
+                    return true;
+                }
+
+                if (loadedSsmsAssembly.Version == new Version(12, 0, 0, 0))
+                {
+                    versionSpecificFunctionProvider = null; //new Ssms2014FunctionProvider(ssmsDte2);
+                    return true;
+                }
             }
 
-            throw new NotImplementedException();
-            
+            return false;
+        }
+
+        private ICustomSsmsFunctionProvider Load2008VersionSpecific(SsmsAssembly loadedSsmsAssembly, object ssmsDte2)
+        {
+            if (loadedSsmsAssembly.FileVersion.FileMinorPart < 50)
+                return null; //new Ssms2008FunctionProvider(ssmsDte2);
+            return null; //new Ssms2008r2FunctionProvider(ssmsDte2);
+        }
+
+        private ICustomSsmsFunctionProvider Load2005VersionSpecific(SsmsAssembly loadedSsmsAssembly, object ssmsDte2)
+        {
+            if (loadedSsmsAssembly.FileVersion.FileBuildPart < 3000)
+            {
+                if (loadedSsmsAssembly.StrongName == "Microsoft.SqlServer.Express.VSIntegration" || loadedSsmsAssembly.StrongName == "Microsoft.SqlServer.Express.SqlWorkbench.Interfaces")
+                    return null; //new Ssms2005ExpressP1FunctionProvider(ssmsDte2);
+
+                return null; //new Ssms2005RtmFunctionProvider(ssmsDte2);
+            }
+            if (loadedSsmsAssembly.StrongName == "Microsoft.SqlServer.Express.VSIntegration" || loadedSsmsAssembly.StrongName == "Microsoft.SqlServer.Express.SqlWorkbench.Interfaces")
+                return null; //new Ssms2005ExpressFunctionProvider(ssmsDte2);
+
+            return null; //new Ssms2005Sp2FunctionProvider(ssmsDte2);
         }
 
         private bool TryFindLoadedSsmsAssembly(out SsmsAssembly ssmsAssembly)
