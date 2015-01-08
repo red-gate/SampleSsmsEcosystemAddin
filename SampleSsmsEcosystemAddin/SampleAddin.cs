@@ -5,6 +5,7 @@ using SampleSsmsEcosystemAddin.Examples;
 using SampleSsmsEcosystemAddin.Examples.CustomQueryWindow;
 using SampleSsmsEcosystemAddin.Examples.MessagesWindow;
 using SampleSsmsEcosystemAddin.Examples.ObjectExplorerMenus;
+using SampleSsmsEcosystemAddin.Examples.SsmsFunctionalityProvider;
 
 namespace SampleSsmsEcosystemAddin
 {
@@ -34,6 +35,7 @@ namespace SampleSsmsEcosystemAddin
         private ISsmsFunctionalityProvider6 m_Provider;
         private MessageLog m_MessageLog;
         private IToolWindow m_MessageLogWindow;
+        private ICustomSsmsFunctionProvider m_CustomProvider;
 
         /// <summary>
         /// This is the entry point for your add in.
@@ -49,11 +51,18 @@ namespace SampleSsmsEcosystemAddin
             m_MessageLogWindow.Window.Dock();
             DisplayMessages();
 
+            LoadCustomDteIntegrations();
             AddMenuBarMenu();
             AddCustomQueryWindowButton();
             AddObjectExplorerContextMenu();
             AddObjectExplorerListener();
             AddToolbarButton();
+        }
+
+        private void LoadCustomDteIntegrations()
+        {
+            m_CustomProvider = new CustomSsmsFunctionProvider();
+            m_MessageLog.AddMessage("Loaded custom ssms functions.");
         }
 
         private void AddCustomQueryWindowButton()
