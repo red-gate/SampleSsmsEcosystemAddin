@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Windows.Forms;
 using RedGate.SIPFrameworkShared;
 
 namespace SampleSsmsEcosystemAddin.Examples.CustomQueryWindow
@@ -20,10 +21,22 @@ namespace SampleSsmsEcosystemAddin.Examples.CustomQueryWindow
             Execute();
         }
 
-        public void Execute()
-        {
-            m_Provider.GetQueryWindowManager().CreateAugmentedQueryWindow(string.Empty, "Custom query window", new CustomQueryWindowControl(m_Provider));
-        }
+public void Execute()
+{
+    var control = new CustomQueryWindowControl(m_Provider);
+    m_Provider.GetQueryWindowManager().CreateAugmentedQueryWindow(string.Empty, "Custom query window", control);
+    control.Dock = DockStyle.Bottom;
+    GetConnection(control);
+}
+
+private void GetConnection(CustomQueryWindowControl control)
+{
+    var parent = control.Parent;
+    var type = parent.GetType();
+    var connectionProperty = type.GetProperty("Connection");
+    var connection = connectionProperty.GetValue(parent, new object[] {});
+    //connection has all the information in it
+}
 
         public string Caption { get { return "Open Custom Query Window"; } }
         public string Tooltip { get { return "Tooltip"; }}
