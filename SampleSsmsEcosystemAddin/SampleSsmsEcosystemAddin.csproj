@@ -69,6 +69,7 @@
     <Compile Include="Examples\MessagesWindow\MessageLog.cs" />
     <Compile Include="Examples\CustomQueryWindow\OpenCustomQueryWindowCommand.cs" />
     <Compile Include="Examples\SsmsFunctionalityProvider\ICustomSsmsFunctionProvider.cs" />
+    <Compile Include="Examples\SsmsFunctionalityProvider\SsmsAssembly.cs" />
     <Compile Include="SampleAddin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Examples\SharedCommand.cs" />

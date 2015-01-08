@@ -13,6 +13,12 @@
 
         private ICustomSsmsFunctionProvider LoadVersionSpecific(object ssmsDte2)
         {
+            var loadedSsmsAssembly = FindLoadedSsmsAssembly();
+            throw new System.NotImplementedException();
+        }
+
+        private SsmsAssembly FindLoadedSsmsAssembly()
+        {
             throw new System.NotImplementedException();
         }
     }
