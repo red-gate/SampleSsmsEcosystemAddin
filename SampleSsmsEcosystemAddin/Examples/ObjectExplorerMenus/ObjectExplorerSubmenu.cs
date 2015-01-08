@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using RedGate.SIPFrameworkShared;
 
-namespace SampleSsmsEcosystemAddin.Examples
+namespace SampleSsmsEcosystemAddin.Examples.ObjectExplorerMenus
 {
     class ObjectExplorerSubmenu : SubmenuSimpleOeMenuItemBase
     {

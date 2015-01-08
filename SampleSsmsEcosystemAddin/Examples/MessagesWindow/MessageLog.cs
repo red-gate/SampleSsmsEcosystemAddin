@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Net.Mime;
 using System.Windows;
 
-namespace SampleSsmsEcosystemAddin.Examples
+namespace SampleSsmsEcosystemAddin.Examples.MessagesWindow
 {
     internal class MessageLog
     {

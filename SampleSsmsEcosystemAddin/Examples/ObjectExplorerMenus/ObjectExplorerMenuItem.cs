@@ -2,7 +2,7 @@
 using System.Data.SqlClient;
 using RedGate.SIPFrameworkShared;
 
-namespace SampleSsmsEcosystemAddin.Examples
+namespace SampleSsmsEcosystemAddin.Examples.ObjectExplorerMenus
 {
     public class ObjectExplorerMenuItem : ActionSimpleOeMenuItemBase
     {

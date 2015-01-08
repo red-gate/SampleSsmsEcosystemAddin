@@ -4,6 +4,7 @@ using RedGate.SIPFrameworkShared.ObjectExplorer;
 using SampleSsmsEcosystemAddin.Examples;
 using SampleSsmsEcosystemAddin.Examples.CustomQueryWindow;
 using SampleSsmsEcosystemAddin.Examples.MessagesWindow;
+using SampleSsmsEcosystemAddin.Examples.ObjectExplorerMenus;
 
 namespace SampleSsmsEcosystemAddin
 {
