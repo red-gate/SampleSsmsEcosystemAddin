@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using Ssms2012;
+using Ssms2014;
 
 namespace SampleSsmsEcosystemAddin.Examples.SsmsFunctionalityProvider
 {
@@ -43,13 +45,13 @@ namespace SampleSsmsEcosystemAddin.Examples.SsmsFunctionalityProvider
 
                 if (loadedSsmsAssembly.Version == new Version(11, 0, 0, 0))
                 {
-                    versionSpecificFunctionProvider = null; //new Ssms2012FunctionProvider(ssmsDte2);
+                    versionSpecificFunctionProvider = new Ssms2012FunctionProvider(ssmsDte2);
                     return true;
                 }
 
                 if (loadedSsmsAssembly.Version == new Version(12, 0, 0, 0))
                 {
-                    versionSpecificFunctionProvider = null; //new Ssms2014FunctionProvider(ssmsDte2);
+                    versionSpecificFunctionProvider = new Ssms2014FunctionProvider(ssmsDte2);
                     return true;
                 }
             }
