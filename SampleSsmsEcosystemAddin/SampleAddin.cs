@@ -61,7 +61,7 @@ namespace SampleSsmsEcosystemAddin
 
         private void LoadCustomDteIntegrations()
         {
-            m_CustomProvider = new CustomSsmsFunctionProvider();
+            m_CustomProvider = new CustomSsmsFunctionProvider(m_Provider.SsmsDte2);
             m_MessageLog.AddMessage("Loaded custom ssms functions.");
         }
 
