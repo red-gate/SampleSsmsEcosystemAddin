@@ -1,6 +1,6 @@
 ﻿namespace SampleSsmsEcosystemAddin.Examples.SsmsFunctionalityProvider
 {
-    internal interface ICustomSsmsFunctionProvider
+    public interface ICustomSsmsFunctionProvider
     {
     }
 }

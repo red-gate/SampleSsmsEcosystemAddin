@@ -68,7 +68,6 @@
     <Compile Include="Examples\ObjectExplorerMenus\ObjectExplorerMenuItem.cs" />
     <Compile Include="Examples\MessagesWindow\MessageLog.cs" />
     <Compile Include="Examples\CustomQueryWindow\OpenCustomQueryWindowCommand.cs" />
-    <Compile Include="Examples\SsmsFunctionalityProvider\ICustomSsmsFunctionProvider.cs" />
     <Compile Include="Examples\SsmsFunctionalityProvider\SsmsAssembly.cs" />
     <Compile Include="SampleAddin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -91,7 +90,12 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\CustomSsmsFunctionalityProviderInterfaces\CustomSsmsFunctionalityProviderInterfaces.csproj">
+      <Project>{e730d1f9-43c0-4617-bf9b-631e82b502db}</Project>
+      <Name>CustomSsmsFunctionalityProviderInterfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
