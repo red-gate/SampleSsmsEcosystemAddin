@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Reflection;
 using RedGate.SIPFrameworkShared;
 
 namespace SampleSsmsEcosystemAddin.Examples.ObjectExplorerMenus
@@ -27,6 +28,14 @@ namespace SampleSsmsEcosystemAddin.Examples.ObjectExplorerMenus
         public override bool AppliesTo(ObjectExplorerNodeDescriptorBase oeNode)
         {
             return true;
+        }
+
+        public ICommandImage Icon
+        {
+            get
+            {
+                return new CommandImageForEmbeddedResources(Assembly.GetExecutingAssembly(), "SampleSsmsEcosystemAddin.Examples.ObjectExplorerMenus.icon.png");
+            }
         }
 
         /// <summary>
