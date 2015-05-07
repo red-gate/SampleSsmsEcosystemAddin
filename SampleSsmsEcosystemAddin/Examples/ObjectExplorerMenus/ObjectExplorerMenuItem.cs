@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Reflection;
 using RedGate.SIPFrameworkShared;
 
@@ -30,13 +31,11 @@ namespace SampleSsmsEcosystemAddin.Examples.ObjectExplorerMenus
             return true;
         }
 
-        public ICommandImage Icon
+        public override Image ItemImage
         {
-            get
-            {
-                return new CommandImageForEmbeddedResources(Assembly.GetExecutingAssembly(), "SampleSsmsEcosystemAddin.Examples.ObjectExplorerMenus.icon.png");
-            }
+            get { return (Image) new CommandImageForEmbeddedResources(Assembly.GetExecutingAssembly(), "SampleSsmsEcosystemAddin.Examples.ObjectExplorerMenus.icon.png").GetImage(); }
         }
+
 
         /// <summary>
         /// The text displayed for this menu item.
